@@ -1070,14 +1070,14 @@ void ADPi::begin(){
 
 int ADPi::GetValue(unsigned char channel){
 	char RxBuf[10];
-	int len = 0, i, state;
+	int len = 0, state;
 	 
 	state = TransReceProcess(channel, &len, RxBuf);
 	if(!state){
 		printf("ex error, please try angin!\n");
 	} else {
 		if(state > 0){
-			return  (atoi(RxBuf));
+			return *(unsigned long *)RxBuf;
 		} else {
 			printf("Receive time out, please try angin!\n");
 		}
@@ -1110,7 +1110,7 @@ int ADPi::TransReceProcess(unsigned char channel, int *length, char *buf){
 		Serial.readBytes(tmpBuf, 50);
 		len = tmpBuf[3];
 		for(i = 0; i < len; i++){
-			*(buf + i) = tmpBuf[4];
+			*(buf + i) = tmpBuf[4+i];
 		}
 		*(buf+len) = '\0';
 
