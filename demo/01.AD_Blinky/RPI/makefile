@@ -1,11 +1,11 @@
 PRJ = ad_blinky
 
-CFLAGS = -lrt -lpthread #-Wall -Wshadow
-SRC = arduPi.cpp main.cpp #ResPi_Test.cpp# main.cpp
-
+CFLAGS = -lrt -lpthread
+INC = ../../../lib/librpi
+SRC = $(INC)/arduPi.cpp main.cpp 
 
 all:
-	sudo g++ $(CFLAGS) $(SRC) -o $(PRJ)
+	sudo g++ $(CFLAGS) -I$(INC) $(SRC) -o $(PRJ)
 
 .PHONY : clean
 clean:
